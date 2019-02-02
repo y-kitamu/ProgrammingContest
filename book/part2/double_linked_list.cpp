@@ -42,7 +42,7 @@ public:
         tail = tail == 0 ? max_len - 1 : tail - 1;
     }
 
-    void show_elements() {
+    void showElements() {
         int position = head;
         while (position != tail) {
             std::cout << dllist[position];
@@ -60,11 +60,78 @@ public:
     int *dllist;
 };
 
+
+struct Node {
+    int value;
+    Node *prev, *next;
+};
+
+
+class DoublyLinkedList2 {
+public:
+    DoublyLinkedList2() {
+        nil = new Node;
+        nil->prev = nil;
+        nil->next = nil;
+    }
+
+    void insert(int x) {
+        Node *new_node = new Node;
+        new_node->value = x;
+        new_node->prev = nil;
+        new_node->next = nil->next;
+        nil->next->prev = new_node;
+        nil->next = new_node;
+    }
+    
+    Node* search(int x) {
+        Node *cur = nil->next;
+        while (cur != nil && cur->value != x) {
+            cur = cur->next;
+        }
+        return cur;
+    }
+
+    void deleteNode(Node *t) {
+        if (t == nil) return;
+        t->prev->next = t->next;
+        t->next->prev = t->prev;
+        delete t;
+    }
+    
+    void deleteFirst() {
+        deleteNode(nil->next);
+    }
+
+    void deleteLast() {
+        deleteNode(nil->prev);
+    }
+
+    void deleteKey(int x) {
+        deleteNode(search(x));
+    }
+
+    void showElements() {
+        Node *cur = nil->next;
+        while (cur != nil) {
+            std::cout << cur->value;
+            if (cur->next != nil) {
+                std::cout << " ";
+            }
+            cur = cur->next;
+        }
+        std::cout << std::endl;
+    }
+    
+    Node *nil;
+};
+
+
 int main(int argc, char ** argv) {
     int n = 1;
     std::cin >> n;
 
-    DoublyLinkedList dll = DoublyLinkedList();
+    DoublyLinkedList2 dll = DoublyLinkedList2();
     
     for (int i = 0; i < n; i++) {
         char command[11];
@@ -83,5 +150,5 @@ int main(int argc, char ** argv) {
             dll.deleteLast();
         }
     }
-    dll.show_elements();
+    dll.showElements();
 }
