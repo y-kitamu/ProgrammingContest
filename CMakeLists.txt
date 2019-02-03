@@ -10,3 +10,4 @@ set(CMAKE_XCC_FLAGS_RELEASE "-O3")
 include(../cmake/utility.cmake)
 
 add_subdirectory(book)
+add_subdirectory(AtCoder)
