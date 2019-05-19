@@ -1,4 +1,6 @@
 #include <iostream>
+#include <vector>
+
 
 int main() {
     int N, M, C;
@@ -24,4 +26,5 @@ int main() {
     }
 
     std::cout << cnt << std::endl;
+
 }
