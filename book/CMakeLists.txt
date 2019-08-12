@@ -9,3 +9,4 @@ set(module_name book)
 # endforeach()
 
 add_subdirectory(part2)
+add_subdirectory(second_round)

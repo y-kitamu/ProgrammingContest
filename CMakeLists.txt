@@ -6,6 +6,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_FLAGS "-Wall")
 set(CMAKE_CXX_FLAGS_DEBUG "")
 set(CMAKE_XCC_FLAGS_RELEASE "-O3")
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 include(./cmake/utility.cmake)
 
