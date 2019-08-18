@@ -4,7 +4,7 @@ int main() {
     int N, M;
     std::cin >> N >> M;
 
-    int food[M] = {};
+    int food[M];
 
     for (int i = 0; i < N; i++) {
         int K;

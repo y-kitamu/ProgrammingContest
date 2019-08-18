@@ -8,7 +8,7 @@ int main() {
 
     std::cin >> N >> M;
 
-    int row_vec[N] = {}, col_vec[M] = {};
+    int row_vec[N], col_vec[M];
 
     for (int i = 0; i < N; i++) {
         for (int j = 0; j < M; j++) {
