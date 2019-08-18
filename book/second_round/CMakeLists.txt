@@ -1,4 +1,5 @@
-file(GLOB file_list "^[a-zA-Z]*.cpp")
+set(module_name ${module_name}_aoj)
+file(GLOB file_list "[a-zA-Z]*.cpp")
 
 # message("${file_list}")
 
