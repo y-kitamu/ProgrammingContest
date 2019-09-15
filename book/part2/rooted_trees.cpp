@@ -83,7 +83,7 @@ int main() {
         tree.setNode();
     }
 
-    int root;
+    int root = -1;
     for (int i = 0; i < n; i++) {
         if (tree.nodes[i].parent == tree.NIL) {
             root = i;
