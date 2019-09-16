@@ -1,6 +1,9 @@
 #include <iostream>
 #include <memory>
+
+#ifndef NDEBUG
 #include <glog/logging.h>
+#endif
 
 class DLL {
   public:
@@ -135,8 +138,10 @@ class DLL2 {
 
 
 int main(int argc, char ** argv) {
+#ifndef NDEBUG
     google::InitGoogleLogging(argv[0]);
     google::InstallFailureSignalHandler();
+#endif
     
     int n;
     DLL2 dll = DLL2();

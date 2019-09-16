@@ -7,9 +7,9 @@ project(contest)
 
 set(CMAKE_CXX_STANDARD 17)
 
-set(CMAKE_CXX_FLAGS "-Wall -DNDEBUG")
-set(CMAKE_CXX_FLAGS_DEBUG "-g -O0 -lglog")
-set(CMAKE_XCC_FLAGS_RELEASE "-O3")
+set(CMAKE_CXX_FLAGS "-Wall")
+set(CMAKE_CXX_FLAGS_DEBUG "-g -O0")
+set(CMAKE_XCC_FLAGS_RELEASE "-O3 -DNDEBUG")
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 include(./cmake/utility.cmake)
