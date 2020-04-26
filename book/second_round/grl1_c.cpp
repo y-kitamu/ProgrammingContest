@@ -55,8 +55,8 @@ std::vector<Node> cost(std::vector<std::vector<Line>> link_mat, int idx) {
 }
 
 
-
 static constexpr long long int  INF = 10000000000;
+
 
 int main() {
     int V, E;
