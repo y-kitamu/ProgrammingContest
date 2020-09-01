@@ -24,4 +24,5 @@ int main() {
         }
     }
     std::cout << scale << std::endl;
+
 }
