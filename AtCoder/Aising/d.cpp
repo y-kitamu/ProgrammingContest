@@ -1,6 +1,15 @@
 #include <bits/stdc++.h>
 
+
 std::vector<int> map(500000, 0);
+
+
+class TestClass {
+  public:
+    void print_func() {
+        std::cout << "test" << std::endl;
+    }
+};
 
 
 int func(int val) {

@@ -20,5 +20,7 @@ include_directories(AFTER "libs")
 
 add_subdirectory(book)
 add_subdirectory(AtCoder)
+add_subdirectory(CodeForces)
+add_subdirectory(LeetCode)
 
 add_subdirectory(tests)
