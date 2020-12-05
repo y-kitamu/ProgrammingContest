@@ -10,24 +10,31 @@ int main() {
         std::cin >> jueries[i];
     }
 
-    long long int max = std::min(K, N);
-    long long int sum_max = 0;
-    for (long long int i = 0; i <= max; i++) {
-        for (long long int j = 0; j < max - i; j++) {
+    long long int sum = 0;
+    int max_draw = std::min(K, N);
+    for (int i = 0; i <= max_draw; i++) {
+        for (int j = 0; j <= max_draw - i; j++) {
             std::vector<long long int> hold;
-            hold.insert(hold.end(), jueries.begin(), jueries.begin() + i);
-            hold.insert(hold.end(), jueries.end() - j, jueries.end());
-            std::sort(hold.begin(), hold.end(), [](auto &lhs, auto &rhs) { return lhs < rhs; });
-            long long int sum = std::accumulate(hold.begin(), hold.end(), 0);
-            long long int num = hold.size();
-            for (long long int k = 0; k < std::min(num, K - num); k++) {
-                if (hold[k] >= 0) {
+            for (int k = 0; k < i; k++) {
+                hold.emplace_back(jueries[k]);
+            }
+            for (int k = 0; k < j; k++) {
+                hold.emplace_back(jueries[N - 1 - k]);
+            }
+            std::sort(hold.begin(), hold.end(), [] (auto &lhs, auto &rhs) { return lhs < rhs; });
+            int max_back = std::min(K - (i + j), (long long int)hold.size());
+            int idx = 0;
+            for (; idx < max_back; idx++) {
+                if (hold[idx] >= 0) {
                     break;
                 }
-                sum -= hold[k];
             }
-            sum_max = std::max(sum, sum_max);
+            long long int s = 0;
+            for (; idx < hold.size(); idx++) {
+                s += hold[idx];
+            }
+            sum = std::max(s, sum);
         }
     }
-    std::cout << sum_max << std::endl;
+    std::cout << sum << std::endl;
 }
