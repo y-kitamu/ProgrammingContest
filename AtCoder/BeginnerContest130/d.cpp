@@ -5,34 +5,27 @@ int main() {
     long long int N, K;
     std::cin >> N >> K;
 
-    std::vector<long long int> sums(N + 1, 0);
-    for (int i = 1; i <= N; i++) {
-        int val;
-        std::cin >> val;
-        sums[i] = sums[i - 1] + val;
+    std::vector<long long int> A(N);
+    for (int i = 0; i < N; i++) {
+        std::cin >> A[i];
     }
 
-    long long int cnt = 0;
-    for (int i = 0; i < N; i++) {
-        if (sums[N] - sums[i] < K) {
-            continue;
-        }
-        // std::cout << i << std::endl;
-        long long int min = i + 1;
-        long long int max = N;
-        while (min <= max) {
-            long long int idx = (min + max) / 2;
-            int sum = sums[idx] - sums[i];
-            if (sum >= K && sums[idx - 1] - sums[i] < K) {
-                cnt += N - idx + 1;
+    long long int count = 0;
+    long long int sum = 0;
+    long long int lhs = 0, rhs = 0;
+    for (;lhs < N; lhs++) {
+        for (; rhs < N; rhs++) {
+            if (sum >= K) {
                 break;
             }
-            if (sum >= K) {
-                max = std::max(idx - 1, min);
-            } else {
-                min = std::min(idx + 1, max);
-            }
+            sum += A[rhs];
         }
+        if (sum < K) {
+            break;
+        }
+        count += N - rhs + 1ll;
+        sum -= A[lhs];
     }
-    std::cout << cnt << std::endl;
+
+    std::cout << count << std::endl;
 }
