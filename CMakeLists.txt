@@ -16,7 +16,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 include(./cmake/utility.cmake)
 
-include_directories(AFTER "libs")
+include_directories(AFTER ${CMAKE_CURRENT_SOURCE_DIR}/libs)
 
 add_subdirectory(book)
 add_subdirectory(AtCoder)
