@@ -1,49 +1,37 @@
 #include <bits/stdc++.h>
 
+struct Node {
+    int min=0, max=0;
+};
+
 int main() {
     std::string S;
     std::cin >> S;
 
-    int size = S.length();
-    std::vector<long long int> mods(size, 1);
-    for (long long int i = 1; i < size; i++) {
-        mods[i] = (mods[i - 1] * 10) % 13;
-    }
-
-    long long int mod = 0;
-    std::vector<long long int> count(13, 0);
-    for (int i = 0; i < size; i++) {
-        if (S[i] == '?') {
-            count[mods[size - i - 1]]++;
-            continue;
-        }
-        int factor = int(S[i] - '0');
-        mod = (mod + mods[size - i - 1] * factor) % 13;
-    }
-
-    long long int MAX = 1000000007;
-    std::vector<std::vector<long long int>> dp(14, std::vector<long long int>(13, 0));
-    dp[0][mod] = 1;
-    for (long long int i = 1; i <= 13; i++) {
-        if (count[i - 1] == 0) {
-            for (int j = 0; j < 13; j++) {
-                dp[i][j] = dp[i - 1][j];
+    long long int MOD = 1e9 + 7;
+    int res = 0, mod_i = 1;
+    int N = S.length();
+    std::vector<long long int> before(13, 0);
+    before[0] = 1;
+    for (int i = 0; i < N; i++) {
+        auto c = S[N - 1 - i];
+        if (c == '?') {
+            std::vector<long long int> after(13, 0);
+            for (int j = 0; j <= 9; j++) {
+                int diff = (mod_i * j) % 13;
+                for (int k = 0; k < 13; k++) {
+                    int idx = (k + diff) % 13;
+                    after[idx] = (before[k] + after[idx]) % MOD;
+                }
             }
-            continue;
+            before = after;
+        } else {
+            int val = (int)(c - '0');
+            res += mod_i * val;
         }
-        long long int n = 10 * count[i - 1] / 13;
-        std::vector<long long int> nums(13, n);
-        for (int j = 0; j < (10 * count[i - 1]) % 13; j++) {
-            int m = ((i - 1) * j) % 13;
-            nums[m]++;
-        }
-        for (int j = 0; j < 13; j++) {
-            long long int factor = dp[i - 1][j];
-            for (int k = 0; k < 13; k++) {
-                long long int idx = (j + k) % 13;
-                dp[i][idx] = (dp[i][idx] + factor * nums[k]) % MAX;
-            }
-        }
+        mod_i = (mod_i * 10) % 13;
     }
-    std::cout << dp[13][5] << std::endl;
+    res %= 13;
+    int idx = (5 - res + 13) % 13;
+    std::cout << before[idx] << std::endl;
 }
