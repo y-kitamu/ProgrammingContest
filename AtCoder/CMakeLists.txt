@@ -8,3 +8,5 @@ foreach(dirname IN LISTS subdir_list)
     add_subdirectory(${dirname})
   endif()
 endforeach()
+
+ADD_CONTESTS()
