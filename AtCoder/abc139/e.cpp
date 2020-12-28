@@ -40,7 +40,7 @@ int main() {
                 matches[pair].prev_matches.emplace_back(&matches[prev_pair]);
             }
             if (j < N - 2) {
-p                auto next_pair = get_pair(i, oppos[i][j + 1]);
+                auto next_pair = get_pair(i, oppos[i][j + 1]);
                 matches[pair].next_matches.emplace_back(&matches[next_pair]);
             }
         }
