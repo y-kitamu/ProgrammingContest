@@ -22,5 +22,6 @@ add_subdirectory(book)
 add_subdirectory(AtCoder)
 add_subdirectory(CodeForces)
 add_subdirectory(LeetCode)
+add_subdirectory(AOJ)
 
 add_subdirectory(tests)
