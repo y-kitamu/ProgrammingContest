@@ -2,18 +2,6 @@
 
 class Solution {
 public:
-
-    int naive(int idx, std::vector<long long int> sums) {
-        int cnt = 0;
-        int n = sums.size();
-        for (int i = idx + 1; idx < n; ++i) {
-            if (sums[idx] <= sums[i] - sums[idx] && sums[i] - sums[idx] <= sums[n - 1] - sums[i]) {
-                cnt++;
-            }
-        }
-        return cnt;
-    }
-
     int waysToSplit(std::vector<int>& nums) {
         long long int MOD = 1e9 + 7;
 
@@ -41,8 +29,6 @@ public:
             while (maxi < N && sums[maxi] - sums[i] <= sums[N - 1] - sums[maxi]) {
                 maxi++;
             }
-            int cnt = naive(i, sums);
-            std::cout << maxi - mini << " , " << cnt << std::endl;
             count = (count + maxi - mini) % MOD;
         }
         return count;
