@@ -3,7 +3,6 @@
 
 class Solution {
   public:
-    int minAbsDifference(std::vector<int>& nums, int goal) {}
 };
 
 

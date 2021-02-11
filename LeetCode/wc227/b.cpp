@@ -21,3 +21,5 @@ class Solution {
         return cnt;
     }
 };
+
+int main() {}
