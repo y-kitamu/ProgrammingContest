@@ -38,11 +38,11 @@ int main() {
         high.push(std::make_pair(i, rhs[i]));
     }
 
-    SegTree seg(lhs);
+    // SegTree seg(lhs);
 
     while (!high.empty()) {
         auto top = high.top();
-        seg.
+        // seg.
     }
 
 
