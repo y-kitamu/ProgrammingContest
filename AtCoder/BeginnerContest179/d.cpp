@@ -30,7 +30,7 @@ long long int solution(std::vector<std::pair<int, int>> sections, int N) {
     std::vector<int> counts(N, 0);
     counts[0] = 1;
     for (int i = 0; i < N; i++) {
-        for (auto section: sections) {
+        for (auto section : sections) {
             if (i + section.first < N) {
                 counts[i + section.first] += counts[i];
             }
@@ -39,7 +39,7 @@ long long int solution(std::vector<std::pair<int, int>> sections, int N) {
             }
         }
     }
-};
+}
 
 
 void test_big() {

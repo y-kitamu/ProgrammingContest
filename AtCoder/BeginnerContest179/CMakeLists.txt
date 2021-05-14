@@ -1,5 +1,5 @@
 file(GLOB file_list [a-z0-9]*.cpp)
-set(module_name "${module_name}_abc179")
+set(module_name "${module_name}__abc179")
 
 foreach(fname IN LISTS file_list)
   get_filename_component(basename ${fname} NAME_WE)
