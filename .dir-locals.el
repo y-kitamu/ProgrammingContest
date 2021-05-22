@@ -1,14 +1,12 @@
 ;;; Directory Local Variables
 ;;; For more information see (info "(emacs) Directory Variables")
-
-(
- (nil
-  . ((dir-local-docker-config-alists
-      . (
-         ((docker-image-id . "cpp_engine")
-          (docker-container-name . "cpp-lsp-docker")
-          (lsp-docker-client-configs
-           . ((:server-id ccls :docker-server-id ccls-docker :server-command "ccls"))))
-         ))
+((c++-mode
+  . (
+     (docker-lsp-server-id . ccls)
+     (docker-lsp-docker-server-id . ccls-docker)
+     (docker-lsp-server-command . "ccls")
+     (docker-lsp-image-id . "cpp_engine")
+     (docker-lsp-container-name . "cpp-lsp-docker")
+     (docker-lsp-path-mappings . (("/home/kitamura/work/" . "/home/kitamura/work/")))
      ))
  )
