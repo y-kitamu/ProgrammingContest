@@ -7,6 +7,10 @@ edition = "2018"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [[bin]]
+name = "alds1_1_c"
+path = "src/bin/alds1_1_c.rs"
+
+[[bin]]
 name = "alds1_1_b"
 path = "src/bin/alds1_1_b.rs"
 
