@@ -12,79 +12,54 @@ int main() {
     std::cin >> H >> W;
 
     std::vector<std::vector<char>> S(H, std::vector<char>(W));
-    for (int h = 0; h < H; h++) {
-        for (int w = 0; w < W; w++) {
-            std::cin >> S[h][w];
+    for (int y = 0; y < H; y++) {
+        for (int x = 0; x < W; x++) {
+            std::cin >> S[y][x];
         }
     }
+    auto T = S;
 
-    std::vector<int> roots(H * W);
-    std::iota(roots.begin(), roots.end(), 0);
-    auto find_root = [&roots](int idx) {
-        std::vector<int> update;
-        while (roots[idx] != idx) {
-            update.emplace_back(idx);
-            idx = roots[idx];
-        }
-        for (auto& i : update) {
-            roots[i] = idx;
-        }
-        return idx;
-    };
+    std::deque<std::pair<int, int>> que;
+    std::vector<std::vector<int>> score(H, std::vector<int>(W, 1e9));
+    que.push_back(std::make_pair(0, 0));
 
-    for (int h = 0; h < H; h++) {
-        for (int w = 0; w < W; w++) {
-            if (S[h][w] == '#') {
-                continue;
-            }
-            int idx = h * W + w;
-            auto root = find_root(idx);
-            if (h > 0 && S[h - 1][w] == '.') {
-                auto prev = find_root(idx - W);
-                roots[std::max(prev, root)] = std::min(prev, root);
-                root = find_root(idx);
-            }
-            if (w > 0 && S[h][w - 1] == '.') {
-                auto prev = find_root(idx - 1);
-                roots[std::max(root, prev)] = std::min(prev, root);
-                root = find_root(idx);
-            }
+    auto push = [&que, &T, &score, &W, &H](int x, int y, int cur) {
+        if (x < 0 || x >= W || y < 0 || y >= H) {
+            return;
         }
-    }
-
-    std::vector<int> counts(H * W, -1);
-    counts[0] = 0;
-    for (int h = 0; h < H; h++) {
-        for (int w = 0; w < W; w++) {
-            int idx = h * W + w;
-            auto cnt = counts[find_root(idx)];
-            // std::cout << find_root(idx) << " ";
-            for (int dy = std::max(h - 2, 0); dy <= std::min(H - 1, h + 2); dy++) {
-                for (int dx = std::max(w - 2, 0); dx <= std::min(W - 1, w + 2); dx++) {
-                    if (std::abs(w - dx) + std::abs(h - dy) == 4) {
+        if (T[y][x] == '#') {
+            for (int dy = -1; dy <= 1; dy++) {
+                for (int dx = -1; dx <= 1; dx++) {
+                    if (y + dy < 0 || y + dy >= H || x + dx < 0 || x + dx >= W) {
                         continue;
                     }
-                    int root = find_root(dy * W + dx);
-                    if (S[h][w] == '#') {
-                        if (counts[root] == -1 || cnt + 1 < counts[root]) {
-                            counts[root] = cnt + 1;
-                        }
-                    } else {
-                        if (dy > 0) {
-                            int c = counts[find_root((dy - 1) * W + dx)];
-                            counts[root] = std::min(c, counts[root]);
-                        }
-                        if (dx > 0) {
-                            int c = counts[find_root(dy * W + dx - 1)];
-                            counts[root] = std::min(c, counts[root]);
-                        }
+                    if (cur + 1 < score[y + dy][x + dx]) {
+                        que.push_back(std::make_pair((y + dy) * W + (x + dx), cur + 1));
                     }
                 }
             }
-            // std::cout << counts[find_root(idx)] << " ";
+        } else {
+            if (cur < score[y][x]) {
+                que.push_front(std::make_pair(y * W + x, cur));
+            }
         }
-        // std::cout << std::endl;
+    };
+
+    while (!que.empty()) {
+        auto front = que.front();
+        auto y = front.first / W;
+        auto x = front.first % W;
+        // std::cout << x << " , " << y << ", " << front.second << std::endl;
+        que.pop_front();
+        if (score[y][x] <= front.second) {
+            continue;
+        }
+        score[y][x] = front.second;
+        push(x - 1, y, score[y][x]);
+        push(x + 1, y, score[y][x]);
+        push(x, y - 1, score[y][x]);
+        push(x, y + 1, score[y][x]);
     }
 
-    std::cout << counts[find_root(H * W - 1)] << std::endl;
+    std::cout << score[H - 1][W - 1] << std::endl;
 }
