@@ -16,6 +16,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Build
-      working-directory: ./rust
-      run: ./build_all.sh
+    - name: Build-atcoder
+      working-directory: ./rust/atcoder
+      run: cargo build

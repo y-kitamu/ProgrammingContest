@@ -1,21 +1,14 @@
 [package]
-name = "alds"
+name = "arc005"
 version = "0.1.0"
 authors = ["Kitamura <ymyk6602@gmail.com>"]
 edition = "2018"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
-[[bin]]
-name = "alds1_1_c"
-path = "src/bin/alds1_1_c.rs"
-
-[[bin]]
-name = "alds1_1_b"
-path = "src/bin/alds1_1_b.rs"
-
-[[bin]]
-name = "alds1_1_a"
-path = "src/bin/alds1_1_a.rs"
-
 [dependencies]
+
+
+[[bin]]
+name = "arc005_c"
+path = "src/bin/c.rs"
