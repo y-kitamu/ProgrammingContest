@@ -1,5 +1,5 @@
 [package]
-name = "atcoder"
+name = "abc176"
 version = "0.1.0"
 authors = ["Kitamura <ymyk6602@gmail.com>"]
 edition = "2018"
@@ -8,8 +8,6 @@ edition = "2018"
 
 [dependencies]
 
-[workspace]
-members = [
-    "arc005",
-    "abc176",
-]
+[[bin]]
+name = "abc176_d"
+path = "src/bin/d.rs"
