@@ -1,0 +1,14 @@
+[package]
+name = "abc023"
+version = "0.1.0"
+authors = ["Kitamura <ymyk6602@gmail.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+
+
+[[bin]]
+name = "abc023_c"
+path = "src/bin/c.rs"
