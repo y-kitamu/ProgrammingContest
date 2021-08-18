@@ -7,20 +7,53 @@
 #include <bits/stdc++.h>
 
 
-long long int calcNum(long long int num) {}
-
-
 int main() {
     int L, R;
     std::cin >> L >> R;
 
-    long long int sum = 0;
-    for (int i = 2; i < L - 1; i++) {
-        long long int min = (L + i - 1) / i;
-        long long int max = R / i;
-        sum += (max - min + 1) * (max - min) / 2;
+    std::vector<int> square(R + 1, 0);
+    std::vector<int> num_prime(R + 1, 0);
+    for (int i = 2; i * i <= R; i++) {
+        int val = i * i;
+        for (int j = 1; val * j <= R; j++) {
+            square[val * j] = 1;
+        }
+        if (num_prime[i] == 0) {
+            for (int j = i + i; j <= R; j += i) {
+                num_prime[j] = 1;
+            }
+        }
     }
 
-    for (int i = L; i <= R; i++) {
+    std::vector<int> counts(R + 1, 0);
+    for (int i = 2; i <= R; i++) {
+        if (num_prime[i] == 1) {
+            continue;
+        }
+        for (int j = i; j <= R; j += i) {
+            counts[j]++;
+        }
     }
+
+
+    long long int sum = 0;
+    for (int i = 2; i <= R; i++) {
+        if (square[i] == 1) {
+            continue;
+        }
+        long long int num = R / i - (L - 1) / i;
+        long long int cnt = num * (num - 1) / 2;
+        // std::cout << i << " , " << counts[i] << " , " << cnt << std::endl;
+        if (counts[i] % 2 == 0) {
+            sum -= cnt;
+        } else {
+            sum += cnt;
+        }
+    }
+
+    for (int i = std::max(2, L); i <= R; i++) {
+        sum -= R / i - 1;
+    }
+
+    std::cout << sum * 2 << std::endl;
 }
