@@ -1,5 +1,5 @@
 [package]
-name = "atcoder"
+name = "dp"
 version = "0.1.0"
 authors = ["Kitamura <ymyk6602@gmail.com>"]
 edition = "2018"
@@ -8,13 +8,15 @@ edition = "2018"
 
 [dependencies]
 
-[workspace]
-members = [
-    "arc005",
-    "abc023",
-    "abc176",
-    "abc178",
-    "abc206",
-    "typical",
-    "dp"
-]
+
+[[bin]]
+name = "dp_a"
+path = "src/bin/a.rs"
+
+[[bin]]
+name = "dp_b"
+path = "src/bin/b.rs"
+
+[[bin]]
+name = "dp_c"
+path = "src/bin/c.rs"

@@ -25,5 +25,9 @@ name = "atcoder"
 version = "0.1.0"
 
 [[package]]
+name = "dp"
+version = "0.1.0"
+
+[[package]]
 name = "typical"
 version = "0.1.0"
