@@ -18,11 +18,8 @@ int main() {
         std::cin >> s[i];
     }
 
-    auto comp = [](auto& lhs, auto& rhs) { return lhs.firs > rhs.first; };
-    std::priority_queue<std::pair<int, int>, std::vector<std::pair<int, int>>, decltype(comp)> que{comp};
-
+    std::vector<int> diff(D, 0);
     long long int sum = s[0];
-    que.push(std::make_pair(r[1], s[0] - s[1]));
     long long int idx = 0;
     long long int cur = 0;
     for (int i = 1; i < N; i++) {
@@ -34,6 +31,8 @@ int main() {
             break;
         }
         sum += s[idx];
-        que.push(std::make_pair(r[idx + 1] - cur, s[idx] - s[idx - 1]));
+        if (r[idx + 1] - cur < D) {
+            diff[r[idx + 1] - cur] = s[idx] - s[idx - 1];
+        }
     }
 }
