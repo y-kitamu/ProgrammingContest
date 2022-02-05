@@ -20,3 +20,7 @@ path = "src/bin/b.rs"
 [[bin]]
 name = "dp_c"
 path = "src/bin/c.rs"
+
+[[bin]]
+name = "dp_d"
+path = "src/bin/d.rs"

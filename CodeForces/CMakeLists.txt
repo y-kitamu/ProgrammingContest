@@ -1,4 +1,4 @@
-set(module_name codeforces)
+set(module_name cf)
 
 SUBDIRLIST(subdir_list ${CMAKE_CURRENT_SOURCE_DIR})
 
@@ -8,3 +8,5 @@ foreach(dirname IN LISTS subdir_list)
     add_subdirectory(${dirname})
   endif()
 endforeach()
+
+ADD_CONTESTS()
