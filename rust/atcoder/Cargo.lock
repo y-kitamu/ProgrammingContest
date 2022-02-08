@@ -21,6 +21,9 @@ version = "0.1.0"
 [[package]]
 name = "abc238"
 version = "0.1.0"
+dependencies = [
+ "yklib",
+]
 
 [[package]]
 name = "arc005"
@@ -29,6 +32,9 @@ version = "0.1.0"
 [[package]]
 name = "atcoder"
 version = "0.1.0"
+dependencies = [
+ "yklib",
+]
 
 [[package]]
 name = "dp"
@@ -36,4 +42,8 @@ version = "0.1.0"
 
 [[package]]
 name = "typical"
+version = "0.1.0"
+
+[[package]]
+name = "yklib"
 version = "0.1.0"
