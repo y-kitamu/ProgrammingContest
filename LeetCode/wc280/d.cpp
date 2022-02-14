@@ -10,41 +10,33 @@
 class Solution {
   public:
     int maximumANDSum(std::vector<int>& nums, int numSlots) {
-        std::sort(nums.begin(), nums.end(), std::greater<>());
+        std::vector<int> dp(1 << (numSlots * 2), -1);
 
-        std::vector<int> flag(nums.size(), 0);
-        std::vector<int> cnts(numSlots + 1, 0);
-        int sum = 0;
-        for (int i = 0; i < 4; i++) {
-            for (int j = 3; j >= i; j--) {
-                for (int n = 0; n < nums.size(); n++) {
-                    if (flag[n] == 1 || !((nums[n] >> (3 - i)) & 1)) {
+        for (int i = 0; i < numSlots; i++) {
+            dp[1 << (i * 2)] = (i + 1) & nums[0];
+        }
+
+        for (int k = 1; k < nums.size(); k++) {
+            std::vector<int> next(1 << (numSlots * 2), -1);
+            for (int i = 0; i < (1 << (numSlots * 2)); i++) {
+                if (dp[i] == -1) {
+                    continue;
+                };
+                for (int j = 0; j < numSlots * 2; j++) {
+                    if (i & (1 << j)) {
                         continue;
                     }
-                    for (int l = 1; l <= numSlots; l++) {
-                        if (cnts[l] == 2) {
-                            continue;
-                        }
-                        bool match = true;
-                        for (int k = i; k <= j; k++) {
-                            if (1 & ((nums[n] >> (3 - k)) ^ (l >> (3 - k)))) {
-                                match = false;
-                                break;
-                            }
-                        }
-                        if (match) {
-                            std::cout << i << ", " << j << ", " << nums[n] << ", " << l << std::endl;
-                            sum += nums[n] & l;
-                            flag[n] = 1;
-                            cnts[l]++;
-                            break;
-                        }
-                        std::cout << nums[n] << " , " << l << std::endl;
-                    }
+                    next[i | (1 << j)] =
+                        std::max(next[i | (1 << j)], dp[i] + int(nums[k] & (j / 2 + 1)));
                 }
             }
+            dp = next;
         }
-        return sum;
+        auto max = dp[0];
+        for (auto& val : dp) {
+            max = std::max(val, max);
+        }
+        return max;
     }
 };
 
