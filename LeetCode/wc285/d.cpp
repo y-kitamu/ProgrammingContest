@@ -6,85 +6,87 @@
  */
 #include <bits/stdc++.h>
 
-
 struct Node {
-    char lchar;
-    int lval;
-    char rchar;
-    int rval;
+    char lc;
+    int lv;
+    char rc;
+    int rv;
     int max;
 };
 
-
-class Seg {
+class SegTree {
   public:
-    Seg(std::string s) : n(s.length()) {
-        offset = std::pow(2, int(log2(n)) + 1) - 1;
-        std::cout << offset << ", " << n << std::endl;
-        seg = std::vector<Node>(offset + n, Node{' ', 0, ' ', 0, 0});
+    SegTree(std::string s) : n(s.length()) {
+        offset = 1;
+        while (offset < n) {
+            offset *= 2;
+        }
+        offset--;
+
+        nodes = std::vector<Node>((offset + 1) * 4, {' ', 0, ' ', 0, 0});
+        // std::cout << "offset = " << offset << ", offset + n = " << offset + n << std::endl;
         for (int i = 0; i < n; i++) {
-            update(i, s[i]);
+            update(s[i], i);
         }
-        for (auto val : seg) {
-            std::cout << val.max << " ";
-        }
-        std::cout << std::endl;
     }
 
-    int update(int idx, char c) {
-        std::cout << "idx = " << idx << ", char = " << c << std::endl;
+    int update(char c, int idx) {
+        // std::cout << c << ", " << idx << std::endl;
         idx += offset;
-        seg[idx].lval = c;
-        seg[idx].rval = c;
+        nodes[idx].lc = c;
+        nodes[idx].lv = 1;
+        nodes[idx].rc = c;
+        nodes[idx].rv = 1;
+        nodes[idx].max = 1;
 
-        int max_val = 1;
+        int max = 1;
         while (idx > 0) {
             idx = (idx - 1) / 2;
-            int left = idx * 2 + 1;
-            int right = idx * 2 + 2;
-            int max = std::max(seg[left].lval, seg[right].rval);
-            if (seg[left].rchar == seg[right].lchar) {
-                max = std::max(max, seg[left].rval + seg[right].lval);
+            int li = idx * 2 + 1;
+            int ri = idx * 2 + 2;
+
+            // update max
+            nodes[idx].max = std::max(nodes[li].max, nodes[ri].max);
+            if (nodes[li].rc == nodes[ri].lc) {
+                nodes[idx].max = std::max(nodes[idx].max, nodes[li].rv + nodes[ri].lv);
             }
-            seg[idx].max = max;
-            seg[idx].lchar = seg[left].lchar;
-            seg[idx].lval = seg[left].lval;
-            if (seg[left].lval == max_val && seg[left].lchar == seg[right].lchar) {
-                seg[idx].lval += seg[right].lval;
+            // update left
+            nodes[idx].lc = nodes[li].lc;
+            nodes[idx].lv = nodes[li].lv;
+            if (nodes[li].lv == max && nodes[li].lc == nodes[ri].lc) {
+                nodes[idx].lv += nodes[ri].lv;
             }
-            seg[idx].rchar = seg[right].rchar;
-            seg[idx].rval = seg[right].rval;
-            if (seg[right].rval == max_val && seg[left].rchar == seg[right].rchar) {
-                seg[idx].rval += seg[left].rval;
+
+            // update right
+            nodes[idx].rc = nodes[ri].rc;
+            nodes[idx].rv = nodes[ri].rv;
+            if (nodes[ri].rv == max && nodes[ri].rc == nodes[li].rc) {
+                nodes[idx].rv += nodes[li].rv;
             }
-            max_val *= 2;
+
+            // update max length
+            max *= 2;
         }
-        return seg[0].max;
+        return nodes[0].max;
     }
 
     int n;
     int offset;
-    std::vector<Node> seg;
+    std::vector<Node> nodes;
 };
-
 
 class Solution {
   public:
     std::vector<int> longestRepeating(std::string s, std::string queryCharacters,
                                       std::vector<int>& queryIndices) {
-        auto segtree = Seg(s);
-        std::vector<int> ans(queryIndices.size());
-        for (int i = 0; i < queryCharacters.length(); i++) {
-            ans[i] = segtree.update(queryIndices[i], queryCharacters[i]);
-
-            for (auto val : segtree.seg) {
-                std::cout << val.max << " ";
-            }
-            std::cout << std::endl;
+        auto seg = SegTree(s);
+        int n = queryIndices.size();
+        std::vector<int> ans(n);
+        for (int i = 0; i < n; i++) {
+            int idx = queryIndices[i];
+            char c = queryCharacters[i];
+            ans[i] = seg.update(c, idx);
         }
         return ans;
     }
 };
-
-
-int main() {}
