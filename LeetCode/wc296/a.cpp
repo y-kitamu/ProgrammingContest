@@ -25,3 +25,5 @@ class Solution {
         return replace(arr);
     }
 };
+
+int main() {}
