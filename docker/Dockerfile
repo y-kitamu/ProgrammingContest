@@ -51,3 +51,11 @@ ARG gid
 ARG user
 RUN groupadd --gid ${gid} ${user} && useradd -ms /bin/bash --uid ${uid} --gid ${gid} ${user}
 RUN usermod -aG sudo ${user}
+
+# link clang
+RUN ln -s /usr/bin/clang-${LLVM_VERSION} /usr/bin/clang && ln -s /usr/bin/clang++-${LLVM_VERSION} /usr/bin/clang++
+
+# copy latest ninja
+RUN apt-get install -y unzip
+ADD https://github.com/ninja-build/ninja/releases/download/v1.11.1/ninja-linux.zip /opt
+RUN rm /usr/bin/ninja && unzip /opt/ninja-linux.zip -d /usr/bin && rm /opt/ninja-linux.zip

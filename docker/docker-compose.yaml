@@ -26,9 +26,9 @@ services:
       - /etc/passwd:/etc/passwd  # same password, uid, gid with host
       - /etc/shadow:/etc/shadow
       - /etc/group:/etc/group
-      - ../:${HOME}/work/${COMPOSE_PROJECT_NAME}
-      - ${HOME}/.bashrc:${HOME}/.bashrc
-      - ${HOME}/.ssh:${HOME}/.ssh
+      # - ../:${HOME}/work/${COMPOSE_PROJECT_NAME}
+      - ${HOME}:${HOME}
+      # - ${HOME}/.ssh:${HOME}/.ssh
       # - ./.jupyter:${HOME}/.jupyter
     entrypoint: /usr/sbin/sshd -D
     restart: always

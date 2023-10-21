@@ -5,7 +5,7 @@ using ll = long long int;
 
 
 int main() {
-    ll mod = 1e9 + 7;
+    // ll mod = 1e9 + 7;
     ll n, k;
     std::cin >> n >> k;
 

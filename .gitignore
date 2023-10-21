@@ -2,3 +2,5 @@
 .ccls-cache
 /build/
 *.elc
+/.cache/
+compile_commands.json
